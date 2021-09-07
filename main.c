@@ -6,7 +6,7 @@
 /*   By: cnicolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 15:59:16 by cnicolas          #+#    #+#             */
-/*   Updated: 2021/09/07 13:19:18 by acerdan          ###   ########.fr       */
+/*   Updated: 2021/09/07 13:27:45 by acerdan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,21 @@ int main(int argc, char **argv, char **envp)
 			bidule  = ft_split(ret, ':');
 		env++;
 	}
-
-	printf("NOTRE BIDULE[0] : %s\n", bidule[0]);
-
 	fd = open(argv[1], O_RDONLY);
 //	fd2 = open(argv[4], O_CREAT);
 	droit_acces = access(argv[1], R_OK);
 	file = read(fd, buf, 4096);
 //	file2 = read(fd2, buf, 4096);
-	char *join = ft_strjoin(bidule[2], argv[2]);
-	printf("join : %s\n", join);
+	char *join = ft_strjoin(bidule[0], argv[2]);
 	execve(join, &argv[2], NULL);
+	int m;
+	m = 0;
+	while (execve(join, &argv[2], NULL) == -1)
+	{
+		m++;
+		join = ft_strjoin(bidule[m], argv[2]);
+	}
+
 //	printf("path : %d\n", check_path_argv2);
 	
 	/*while (bidule[n] != 0)
