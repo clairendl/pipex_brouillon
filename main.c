@@ -6,7 +6,7 @@
 /*   By: cnicolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 15:59:16 by cnicolas          #+#    #+#             */
-/*   Updated: 2021/09/07 13:27:45 by acerdan          ###   ########.fr       */
+/*   Updated: 2021/09/07 16:16:31 by acerdan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int main(int argc, char **argv, char **envp)
 
 	char str[6] = "PATH=";
 	char *ret;
+	char *start;
 	char **split;
 	int n;
 	char **env;
@@ -36,29 +37,56 @@ int main(int argc, char **argv, char **envp)
 	int		droit_acces;
 	int		file2;
 	char 	**bidule;
+	int		m;
+	char	*join;
+	
+	fd = open(argv[1], O_RDONLY);
+	droit_acces = access(argv[1], R_OK);
+	file = read(fd, buf, 4096);
+
+	/*
+	if (argv[2][0] == '/' && access(argv[2], F_OK) == 0)
+		return (cmd)
+		//	execve(join, &argv[2], NULL);
+		executer avec exceve*/
+
+	start = argv[2];
+	printf("start : %s\n", start);
+	split = ft_split(start, ' ');
+	printf("split[0] = %s\n", split[0]);
+	printf("split[1] = %s\n", split[1]);
 
 	while(*env)
     {
     	thisEnv = *env;
 		ret = ft_strchr(thisEnv, str);
     	if (ft_strchr(thisEnv, str) != NULL)
-			bidule  = ft_split(ret, ':');
+			bidule = ft_split(ret, ':');
 		env++;
 	}
-	fd = open(argv[1], O_RDONLY);
-//	fd2 = open(argv[4], O_CREAT);
-	droit_acces = access(argv[1], R_OK);
-	file = read(fd, buf, 4096);
-//	file2 = read(fd2, buf, 4096);
-	char *join = ft_strjoin(bidule[0], argv[2]);
-	execve(join, &argv[2], NULL);
-	int m;
 	m = 0;
-	while (execve(join, &argv[2], NULL) == -1)
+	while (bidule[m])
 	{
-		m++;
 		join = ft_strjoin(bidule[m], argv[2]);
-	}
+	//	printf("%s\n", join);
+		if (access(join, F_OK ) == 0)
+		{
+			//return (join);
+		//	printf("join : %s\n", join);
+			break;
+		}
+		m++;
+	}	
+
+	execve("/bin/ls", &argv[2], &argv[1]);
+//	fd2 = open(argv[4], O_CREAT);
+//	file2 = read(fd2, buf, 4096);
+//		printf("bidule[%d] = %s\n", m, join);
+//		printf("bidule[%d] = %s\n", m, join);
+	//	join = ft_strjoin(bidule[m], argv[2]);
+	//	printf("join  = %s\n", join);
+		//printf("exe : %d\n", execve(join, &argv[2], NULL)); 
+
 
 //	printf("path : %d\n", check_path_argv2);
 	
