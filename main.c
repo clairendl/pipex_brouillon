@@ -6,7 +6,7 @@
 /*   By: cnicolas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 15:59:16 by cnicolas          #+#    #+#             */
-/*   Updated: 2021/09/07 12:43:47 by acerdan          ###   ########.fr       */
+/*   Updated: 2021/09/07 13:19:18 by acerdan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,28 @@ int main(int argc, char **argv, char **envp)
 	droit_acces = access(argv[1], R_OK);
 	file = read(fd, buf, 4096);
 //	file2 = read(fd2, buf, 4096);
-
-	/*char *en[] = {"ls", "-la", NULL};
-        execve("/bin/ls", en, NULL);
-*/
-//	printf("env[0] : %s\n", env[0]);
-	char *join = ft_strjoin(bidule[0], argv[2]);
+	char *join = ft_strjoin(bidule[2], argv[2]);
 	printf("join : %s\n", join);
-//	if (access("/bin/ls", F_OK) == 0 )
-//	{
-		while (env[n] != '\0')
+	execve(join, &argv[2], NULL);
+//	printf("path : %d\n", check_path_argv2);
+	
+	/*while (bidule[n] != 0)
+	{
+		if (access(bidule[n], F_OK) != 0 )
 		{
-			printf("splitou[%d] =  %s\n", n, env[n]);
+			printf("KIT KAT\n");
 			n++;
 		}
-		check_path_argv2 = execve(join, &argv[2], NULL);
-		printf("path : %d\n", check_path_argv2);
-		printf("join2 : %s\n", join);
-	//}
-//	else
-  //		printf("CACA");
+		else
+		{
+  			check_path_argv2 = execve(join, &argv[2], NULL);
+			printf("path : %d\n", check_path_argv2);
+			printf("join2 : %s\n", join);
+			printf("path : %d\n", check_path_argv2);
+			break;
+			
+		}
+	}*/
 
 
 /*	
