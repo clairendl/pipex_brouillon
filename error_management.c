@@ -3,23 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   error_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cnicolas <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cnicolas <cnicolas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 15:28:09 by cnicolas          #+#    #+#             */
-/*   Updated: 2021/09/02 13:23:11 by cnicolas         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:09:17 by cnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "pipex.h"
 
-int	ft_access_file(int fd, char **argv, char *filename)
+int	ft_verif_input(int argc, char **argv)
 {
-	int	result;
-	
-	result = access(filename, F_OK);
-	if (result == -1)
+	int n;
+	n = 0;
+	if (argc != 3)
+	{
+		perror("Incorrect number of arguments in command line");
 		return (-1);
-	else
-		return (0);
+	}
+	while (n != 5)
+	{
+		if (argv[n][0] == '|')
+		{
+			perror("error pipe");
+			return (-1);
+		}
+		n++;
+	}
+	return (0);
 }
 
+int 	ft_verif_files(int fd[2], int check_path_argv2, int check_path_argv3)
+{
+	if (fd[0] == -1 || fd[1] == -1) //test fd avant : fd et fd2
+	{
+		perror("fd error");
+		return (-1);
+	}  
+	if (check_path_argv2 == -1 && check_path_argv3 == -1)
+	{
+	 	perror("Error path");
+		return (-1);
+	}
+	return (0);
+}
+
+int	ft_read_and_access(int droit_acces, ssize_t file)
+{
+	if (droit_acces == -1 )
+	{
+		perror("Access error");
+		return (-1);
+	}
+	
+	if (file == -1)
+	{
+  	 	perror("Read error");
+		return (-1);
+	}
+	return (0);
+}
+
+int	ft_pipe_and_fork(int fd, int id)
+{
+	if (pipe(fd) == -1)
+	{
+		perror("Error with pipe function");
+		return (-1);
+	}
+	if (id == -1)
+	{
+		perror("Error with child procesor creation");
+		return (-1);
+	}
+	return (0);
+}
+
+/*int ft_check_file(int *fd, char **argv, int buf)
+{
+	char
+	if (fd[2] = open(argv[4], O_CREAT) == -1)
+		return (-1);
+	if (file2 = read(fd[2], buf, 4096) 
+	join = ft_strjoin(bidule[m], argv[2]);
+    return(0);
+}*/

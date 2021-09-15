@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cnicolas <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cnicolas <cnicolas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 07:25:23 by cnicolas          #+#    #+#             */
-/*   Updated: 2021/09/07 11:21:14 by acerdan          ###   ########.fr       */
+/*   Updated: 2021/09/15 09:31:25 by cnicolas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <sys/types.h>
 # include <unistd.h>
+# include <stddef.h>
 
 //split
 char	**ft_split(char *s, char c);
@@ -29,5 +30,7 @@ int	is_charset(char s, char c);
 int	ft_strlen(char *s);
 char	*ft_strchr(char *s, char *str);
 char	*ft_strjoin(char *s1, char *s2);
+
+char *ft_parsing_path(char *cmd, char **envp);
 
 #endif
